@@ -23,27 +23,66 @@ var server = http.createServer(function (request, response) {
 
     console.log('收到一个请求，路径（带查询参数）为：' + pathWithQuery)
 
-    if (path === '/') {
+    if (path === '/index') {
         response.statusCode = 200
         response.setHeader('Content-Type', 'text/html;charset=utf-8')
-        response.write(`
-            <h1>Hello World</h1>
-        `)
+        let string = fs.readFileSync('src/index.html').toString()
+        const page1 = fs.readFileSync('db/page1.json').toString()
+        const array = JSON.parse(page1)
+        const result = array.map(item => `<li>${item.id}</li>`).join('')
+        string = string.replace('{{page1}}', `<ul id="xxx">${result}</ul>`)
+        response.write(string)
         response.end()
-    } else if (path === '/x') {
+    } else if (path === '/main.js') {
+        response.statusCode = 200
+        response.setHeader('Content-Type', 'text/javascript;charset=utf-8')
+        response.write(fs.readFileSync('src/main.js'))
+        response.end()
+    } else if (path === '/style') {
         response.statusCode = 200
         response.setHeader('Content-Type', 'text/css;charset=utf-8')
-        response.write(`h1{color: red}`)
+        response.write(fs.readFileSync('src/style.css'))
+        response.end()
+    } else if (path === '/2') {
+        response.statusCode = 200
+        response.setHeader('Content-Type', 'text/html;charset=utf-8')
+        response.write(fs.readFileSync('src/2.html'))
+        response.end()
+    } else if (path === '/3') {
+        response.statusCode = 200
+        response.setHeader('Content-Type', 'text/javascript;charset=utf-8')
+        response.write(fs.readFileSync('src/3.js'))
+        response.end()
+    } else if (path === '/4') {
+        response.statusCode = 200
+        response.setHeader('Content-Type', 'text/xml;charset=utf-8')
+        response.write(fs.readFileSync('src/4.xml'))
+        response.end()
+    } else if (path === '/5') {
+        response.statusCode = 200
+        response.setHeader('Content-Type', 'text/json;charset=utf-8')
+        response.write(fs.readFileSync('src/5.json'))
+        response.end()
+    } else if (path === '/page2') {
+        response.statusCode = 200
+        response.setHeader('Content-Type', 'text/json;charset=utf-8')
+        response.write(fs.readFileSync('db/page2.json'))
+        response.end()
+    } else if (path === '/page3') {
+        response.statusCode = 200
+        response.setHeader('Content-Type', 'text/json;charset=utf-8')
+        response.write(fs.readFileSync('db/page3.json'))
         response.end()
     } else {
         response.statusCode = 404
         response.setHeader('Content-Type', 'text/html;charset=utf-8')
-        response.write(`你访问的页面不存在`)
+        response.write(`你输入的路径不存在对应内容`)
         response.end()
     }
+
 
     /******** 代码结束，下面不要看 ************/
 })
 
 server.listen(port)
-console.log('监听 ' + port + ' 成功\n请用在空中转体720度然后用电饭煲打开 http://localhost:' + port)
+console.log('监听 ' + port + ' 成功\n请在空中转体720度然后用电饭煲打开 http://localhost:' + port)

@@ -1,0 +1,1 @@
+newJS.innerText = 'hi,我是新的JS'
