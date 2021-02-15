@@ -1,5 +1,5 @@
 # Server
-developed by nodeJs && AJXA
+developed by nodeJs && AJXA && Promise
 ### 启动
 ```
 node server.js 8888
