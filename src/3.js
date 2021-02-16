@@ -1,1 +1,1 @@
-newJS.innerText = 'hi,我是新的JS'
+newJS.innerText = 'console.log("hi,我是新的JS")'
