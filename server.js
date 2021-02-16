@@ -1,9 +1,6 @@
 var http = require('http')
 var fs = require('fs')
 var url = require('url')
-const {
-    report
-} = require('process')
 var port = process.argv[2]
 
 if (!port) {
@@ -26,7 +23,21 @@ var server = http.createServer(function (request, response) {
 
     console.log('收到一个请求，路径（带查询参数）为：' + pathWithQuery)
 
-    // JSONP
+    /*
+        if (path === '/index') {
+            response.statusCode = 200
+            response.setHeader('Content-Type', 'text/html;charset=utf-8')
+            let string = fs.readFileSync('src/index.html').toString()
+            const page1 = fs.readFileSync('db/page1.json').toString()
+            const array = JSON.parse(page1)
+            const result = array.map(item => `<li>${item.id}</li>`).join('')
+            string = string.replace('{{page1}}', `<ul id="xxx">${result}</ul>`)
+            response.write(string)
+            response.end()
+        }
+    */
+
+    /* JSONP
     if (path === '/pageJS') {
         if (request.headers["referer"].indexOf("http://zxy.com:9999") === 0) {
             response.statusCode = 200
@@ -41,6 +52,7 @@ var server = http.createServer(function (request, response) {
             response.end()
         }
     }
+    */
 
     response.statusCode = 200
     const filePath = path === '/' ? '/index.html' : path
